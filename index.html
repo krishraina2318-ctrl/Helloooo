@@ -1,165 +1,177 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>for Samyy</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,500;0,600;1,400&family=Work+Sans:wght@300;400;500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For You, My Everything</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<!-- ================= GATE ================= -->
-<div id="gate">
-    <div class="vessel-wrap" id="gate-vessel">
-        <svg viewBox="0 0 200 180" xmlns="http://www.w3.org/2000/svg">
-            <path class="heart-outline" d="M100,170 C100,170 20,110 20,65 C20,30 50,10 75,10 C90,10 100,20 100,35 C100,20 110,10 125,10 C150,10 180,30 180,65 C180,110 100,170 100,170 Z"/>
-            <path class="crack-base" d="M40,50 L90,90 L70,140"/>
-            <path class="crack-base" d="M160,60 L110,100 L130,150"/>
-            <path class="crack-base" d="M95,30 L105,70"/>
-            <path class="crack-gold" d="M40,50 L90,90 L70,140"/>
-            <path class="crack-gold crack-2" d="M160,60 L110,100 L130,150"/>
-            <path class="crack-gold crack-3" d="M95,30 L105,70"/>
-        </svg>
-    </div>
-    <span class="eyebrow">for samyy</span>
-    <h1 class="gate-heading">before you open this</h1>
-    <p class="gate-sub">take whatever time you need. it isn't going anywhere.</p>
+    <audio id="bg-music">
+        <source src="Jutti Meri Live.mp3" type="audio/mpeg">
+    </audio>
 
-    <div class="gate-buttons" id="gate-buttons">
-        <button class="btn btn-primary" id="open-btn">open it</button>
-        <button class="btn btn-ghost" id="later-btn">not right now</button>
-    </div>
-    <p class="later-msg hidden" id="later-msg">okay. it'll be here whenever you're ready — no pressure, no rush.</p>
-</div>
+    <div class="petals" id="petals-container"></div>
 
-<!-- ================= MAIN ================= -->
-<div id="main">
-
-    <audio id="bg-audio" preload="none"></audio>
-
-    <div class="music-widget hidden" id="music-widget">
-        <div class="music-top">
-            <img id="m-cover" src="cover/Jutti-Meri-Live-1.jpg" alt="">
-            <div class="music-info">
-                <span class="m-title" id="m-title">pick a song below</span>
-                <span class="m-artist" id="m-artist">—</span>
-            </div>
-        </div>
-        <input type="range" id="seek-bar" value="0" min="0" max="100" step="0.1">
-        <div class="time-row"><span id="m-current">0:00</span><span id="m-duration">0:00</span></div>
-        <div class="controls">
-            <span id="m-prev">⏮</span>
-            <span id="m-play">▶</span>
-            <span id="m-next">⏭</span>
-        </div>
-        <span class="music-note" id="music-note">song not added yet</span>
+    <div id="cover-screen" onclick="showPopup()">
+        <div class="gift-box" id="gift-icon">🤍</div>
+        <div class="tap-text" id="tap-text">surprise untuk kesayangan aku🤍</div>
     </div>
 
-    <!-- fragment 01 — hero -->
-    <section class="hero">
-        <span class="eyebrow">fragment 01 — the start</span>
-        <h1>I'm sorry.</h1>
-        <p class="lede">Not the kind of sorry that's followed by a "but." Just that — I'm sorry.</p>
-        <span class="scroll-cue">keep going</span>
-    </section>
-
-    <!-- fragment 02 -->
-    <section>
-        <span class="eyebrow">fragment 02 — what happened</span>
-        <h2 class="section-title">Let me say it plainly</h2>
-        <div class="write-here">
-            <span class="tag">✎ write this yourself</span>
-            <p>[Name exactly what you did. No softening it, no "but you also..." — just the thing itself, in a sentence or two.]</p>
-        </div>
-    </section>
-
-    <!-- fragment 03 -->
-    <section>
-        <span class="eyebrow">fragment 03 — why it mattered</span>
-        <h2 class="section-title">I understand why it hurt</h2>
-        <div class="write-here">
-            <span class="tag">✎ write this yourself</span>
-            <p>[Say what it cost her — her time, her trust, her feelings — in her terms, not yours.]</p>
-        </div>
-    </section>
-
-    <!-- fragment 04 — photos -->
-    <section>
-        <span class="eyebrow">fragment 04 — what I don't want to lose</span>
-        <h2 class="section-title">Pieces I'm holding onto</h2>
-        <div class="photo-grid">
-            <div class="photo-item"><img src="photos/photo1.jpg" alt="memory 1"><span class="photo-cap">caption</span></div>
-            <div class="photo-item"><img src="photos/photo2.jpg" alt="memory 2"><span class="photo-cap">caption</span></div>
-            <div class="photo-item"><img src="photos/photo3.jpg" alt="memory 3"><span class="photo-cap">caption</span></div>
-            <div class="photo-item"><img src="photos/photo4.jpg" alt="memory 4"><span class="photo-cap">caption</span></div>
-            <div class="photo-item"><img src="photos/photo5.jpg" alt="memory 5"><span class="photo-cap">caption</span></div>
-            <div class="photo-item"><img src="photos/photo6.jpg" alt="memory 6"><span class="photo-cap">caption</span></div>
-        </div>
-    </section>
-
-    <!-- fragment 05 — music -->
-    <section>
-        <span class="eyebrow">fragment 05 — songs for when words aren't enough</span>
-        <h2 class="section-title">Something to listen to</h2>
-        <div class="playlist">
-            <div class="track" tabindex="0" data-src="Jutti Meri Live.mp3" data-title="Jutti Meri Live" data-artist="Live Performance" data-cover="cover/Jutti-Meri-Live-1.jpg" data-start="0:04">
-                <img src="cover/Jutti-Meri-Live-1.jpg" alt=""><div><div class="t-title">Jutti Meri Live</div><div class="t-artist">Live Performance</div></div>
-            </div>
-            <div class="track" tabindex="0" data-src="Bairan (PenduJatt.Com.Se).mp3" data-title="Bairan" data-artist="PenduJatt" data-cover="cover/bairan.jpg" data-start="0:00">
-                <img src="cover/bairan.jpg" alt=""><div><div class="t-title">Bairan</div><div class="t-artist">PenduJatt</div></div>
-            </div>
-            <div class="track" tabindex="0" data-src="Par Chanaa De (PenduJatt.Com.Se).mp3" data-title="Par Chanaa De" data-artist="Coke Studio" data-cover="cover/par chana.jpg" data-start="0:50">
-                <img src="cover/par chana.jpg" alt=""><div><div class="t-title">Par Chanaa De</div><div class="t-artist">Coke Studio</div></div>
-            </div>
-            <div class="track" tabindex="0" data-src="Mera Yaar (PenduJatt.Com.Se).mp3" data-title="Mera Yaar" data-artist="PenduJatt" data-cover="cover/mera yaar.jpg" data-start="0:00">
-                <img src="cover/mera yaar.jpg" alt=""><div><div class="t-title">Mera Yaar</div><div class="t-artist">PenduJatt</div></div>
-            </div>
-            <div class="track" tabindex="0" data-src="Tajdar-E-Haram (PenduJatt.Com.Se).mp3" data-title="Tajdar-E-Haram" data-artist="Coke Studio" data-cover="cover/tajiadar.jpg" data-start="3:42">
-                <img src="cover/tajiadar.jpg" alt=""><div><div class="t-title">Tajdar-E-Haram</div><div class="t-artist">Coke Studio</div></div>
-            </div>
-            <div class="track" tabindex="0" data-src="Sultan_Sultan_-_Bulleyya_(mp3.pm).mp3" data-title="Bulleya" data-artist="Sultan" data-cover="cover/bulleya.jpg" data-start="0:35">
-                <img src="cover/bulleya.jpg" alt=""><div><div class="t-title">Bulleya</div><div class="t-artist">Sultan</div></div>
-            </div>
-            <div class="track" tabindex="0" data-src="Edd_Sheeran_-_Perfect_(mp3.pm).mp3" data-title="Perfect" data-artist="Ed Sheeran" data-cover="cover/perfect.jpg" data-start="0:00">
-                <img src="cover/perfect.jpg" alt=""><div><div class="t-title">Perfect</div><div class="t-artist">Ed Sheeran</div></div>
+    <div id="popup-overlay" class="hidden">
+        <div id="popup-box">
+            <h3 class="serif">Bener bener mau buka surprisenya nihh 🥺</h3>
+            <div class="popup-buttons">
+                <button id="btn-yes" class="popup-btn" onclick="confirmOpenGift()">Iyaaa dongggg 🤍</button>
+                <button id="btn-no" class="popup-btn">Nggak ah skip dulu 😜</button>
             </div>
         </div>
-    </section>
+    </div>
 
-    <!-- fragment 07 — promises -->
-    <section>
-        <span class="eyebrow">fragment 07 — what changes now</span>
-        <h2 class="section-title">Not just words</h2>
-        <div class="promise-list">
-            <div class="promise"><span class="num">01</span><p>[A specific, checkable thing you'll actually do differently.]</p></div>
-            <div class="promise"><span class="num">02</span><p>[Another concrete one — something she can hold you to.]</p></div>
-            <div class="promise"><span class="num">03</span><p>[A third, if there is one. Don't pad it just to have three.]</p></div>
+    <div id="main-content">
+        
+        <div class="music-widget">
+            <div class="music-top">
+                <img id="player-cover" src="cover/Jutti-Meri-Live-1.jpg" alt="Album Art">
+                <div class="music-info">
+                    <span class="title" id="player-title">Jutti Meri Live</span>
+                    <span class="artist" id="player-artist">Live Performance</span>
+                </div>
+            </div>
+
+            <div class="progress-wrapper">
+                <input type="range" id="seek-bar" value="0" min="0" max="100" step="0.1">
+                <div class="time-display">
+                    <span id="current-time">0:00</span>
+                    <span id="duration">0:00</span>
+                </div>
+            </div>
+
+            <div class="controls">
+                <span onclick="prevSong()">⏮</span>
+                <span id="play-pause-btn" onclick="toggleMusic()">⏸</span>
+                <span onclick="nextSong()">⏭</span>
+            </div>
         </div>
-    </section>
 
-    <!-- closing -->
-    <section class="closing">
-        <div class="vessel-wrap mended">
-            <svg viewBox="0 0 200 180" xmlns="http://www.w3.org/2000/svg">
-                <path class="heart-outline" d="M100,170 C100,170 20,110 20,65 C20,30 50,10 75,10 C90,10 100,20 100,35 C100,20 110,10 125,10 C150,10 180,30 180,65 C180,110 100,170 100,170 Z"/>
-                <path class="crack-base" d="M40,50 L90,90 L70,140"/>
-                <path class="crack-base" d="M160,60 L110,100 L130,150"/>
-                <path class="crack-base" d="M95,30 L105,70"/>
-                <path class="crack-gold" d="M40,50 L90,90 L70,140"/>
-                <path class="crack-gold crack-2" d="M160,60 L110,100 L130,150"/>
-                <path class="crack-gold crack-3" d="M95,30 L105,70"/>
-            </svg>
-        </div>
-        <span class="eyebrow">the whole</span>
-        <h2>Mended, not despite the crack — because of it</h2>
-        <p class="lede">No rush on your end. I'm here when you're ready to talk, or not talk, or just send a meme like nothing happened. Whatever you need.</p>
-        <p class="signoff">[sign it the way you'd actually say it]</p>
-    </section>
+        <section class="hero-section">
+            <p class="subtitle">sebuah ucapan cinta untuk pujaan hatiku🤍</p>
+            <h1 class="title-main serif">Untukmu<br>Pemegang Hatiku</h1>
+            <h1 class="title-main serif">Samyy</h1>
+            <img src="photos/photo1.jpg" alt="Pemegang Hatiku" style="width: 160px; height: 160px; object-fit: cover; border-radius: 50%; border: 3px solid rgba(255, 255, 255, 0.2); box-shadow: 0 0 25px rgba(229,115,115,0.4); margin-bottom: 25px;">
+            <p class="text-body" style="margin-top:10px;">Setiap kelopak bunga menyimpan bisikan tentang betapa berartinya dirimu bagiku.</p>
+            <div style="font-size: 24px; margin-top:20px;">🌸</div>
+            <button class="next-btn" onclick="nextSection(this)">🤍</button>
+        </section>
 
-</div>
+        <section>
+            <p class="subtitle">our melodies</p>
+            <h2 class="title-sub serif">Lagu Yang Mengingatkanku Pada Dirimu</h2>
+            <p class="subtitle">klik cover art untuk ganti lagu</p>
+            <div class="playlist-grid">
 
-<script src="script.js"></script>
+                <div class="photo-item" style="cursor: pointer;" onclick="changeSong('Jutti Meri Live.mp3', 'Jutti Meri Live', 'Live Performance', 'cover/Jutti-Meri-Live-1.jpg')">
+                    <img src="cover/Jutti-Meri-Live-1.jpg" alt="Cover" style="filter: none;">
+                    <p class="photo-caption" style="font-size: 16px; margin-top: 10px; color: #fff; font-family: 'Montserrat', sans-serif;">Jutti Meri Live</p>
+                    <p style="font-size: 11px; color: var(--text-muted);">Live Performance</p>
+                </div>
+
+                <div class="photo-item" style="cursor: pointer;" onclick="changeSong('Bairan (PenduJatt.Com.Se).mp3', 'Bairan', 'PenduJatt', 'cover/bairan.jpg')">
+                    <img src="cover/bairan.jpg" alt="Cover" style="filter: none;">
+                    <p class="photo-caption" style="font-size: 16px; margin-top: 10px; color: #fff; font-family: 'Montserrat', sans-serif;">Bairan</p>
+                    <p style="font-size: 11px; color: var(--text-muted);">PenduJatt</p>
+                </div>
+
+                <div class="photo-item" style="cursor: pointer;" onclick="changeSong('Par Chanaa De (PenduJatt.Com.Se).mp3', 'Par Chanaa De', 'Coke Studio', 'cover/par chana.jpg')">
+                    <img src="cover/par chana.jpg" alt="Cover" style="filter: none;">
+                    <p class="photo-caption" style="font-size: 16px; margin-top: 10px; color: #fff; font-family: 'Montserrat', sans-serif;">Par Chanaa De</p>
+                    <p style="font-size: 11px; color: var(--text-muted);">Coke Studio</p>
+                </div>
+                
+                <div class="photo-item" style="cursor: pointer;" onclick="changeSong('Mera Yaar (PenduJatt.Com.Se).mp3', 'Mera Yaar', 'PenduJatt', 'cover/mera yaar.jpg')">
+                    <img src="cover/mera yaar.jpg" alt="Cover" style="filter: none;">
+                    <p class="photo-caption" style="font-size: 16px; margin-top: 10px; color: #fff; font-family: 'Montserrat', sans-serif;">Mera Yaar</p>
+                    <p style="font-size: 11px; color: var(--text-muted);">PenduJatt</p>
+                </div>
+
+                <div class="photo-item" style="cursor: pointer;" onclick="changeSong('Tajdar-E-Haram (PenduJatt.Com.Se).mp3', 'Tajdar-E-Haram', 'Coke Studio', 'cover/tajiadar.jpg')">
+                    <img src="cover/tajiadar.jpg" alt="Cover" style="filter: none;">
+                    <p class="photo-caption" style="font-size: 16px; margin-top: 10px; color: #fff; font-family: 'Montserrat', sans-serif;">Tajdar-E-Haram</p>
+                    <p style="font-size: 11px; color: var(--text-muted);">Coke Studio</p>
+                </div>
+
+            </div>
+            <button class="next-btn" onclick="nextSection(this)">🤍</button>
+        </section>
+
+        <section>
+            <p class="subtitle">🌸 from my heart 🌸</p>
+            <h2 class="title-sub serif">You are my<br>wildest dream<br>come true.</h2>
+            <p class="text-body">
+                In a world full of ordinary moments, you are the extraordinary one. The way you laugh, the way you care, the way you simply exist — it fills every corner of my world with something I never knew I needed.<br><br>
+                These flowers are not enough. No words ever could be. But they carry every unspoken feeling I hold for you, pressed between their petals like tiny love letters waiting to be found.<br><br> Semua Yang Kumau Hanyalah Dirimu.
+            </p>
+            <p class="serif" style="margin-top: 40px; font-style: italic; font-size: 24px; color: var(--text-muted);">
+                - Selalu Dirimu -
+            </p>
+            <button class="next-btn" onclick="nextSection(this)">🤍</button>
+        </section>
+
+        <section>
+            <p class="subtitle">masih banyak yang tak bisa ku ungkapkan namun ini beberapa alasan</p>
+            <h2 class="title-sub serif">Mengapa Aku Mencintaimu</h2>
+            <div class="reasons-grid">
+                <div class="card"><div class="card-icon">✨</div><h3 class="serif">Your Smile</h3><p>It lights up every room and every corner of my heart simultaneously.</p></div>
+                <div class="card"><div class="card-icon">🌟</div><h3 class="serif">Your Soul</h3><p>Rare, genuine, and more beautiful than any flower ever grown.</p></div>
+                <div class="card"><div class="card-icon">💖</div><h3 class="serif">Your Kindness</h3><p>The way you love the world makes me want to be better every single day.</p></div>
+                <div class="card"><div class="card-icon">🎵</div><h3 class="serif">Your Laughter</h3><p>The best sound in existence. My favourite melody, always.</p></div>
+                <div class="card"><div class="card-icon">💪</div><h3 class="serif">Your Strength</h3><p>You carry so much grace through everything. I admire you endlessly.</p></div>
+                <div class="card"><div class="card-icon">🌸</div><h3 class="serif">Simply You</h3><p>Every version of you, every moment - you are more than enough.</p></div>
+            </div>
+            <button class="next-btn" onclick="nextSection(this)">🤍</button>
+        </section>
+
+        <section>
+            <p class="subtitle">Waktu terhenti di balik lensa, namun rasanya tak pernah pudar oleh masa.</p>
+            <h2 class="title-sub serif">Baby You're<br>Divine</h2>
+            <div class="photo-grid">
+                <div class="photo-item"><img src="photos/photo1.jpg" alt="You"><p class="photo-caption">you</p></div>
+                <div class="photo-item"><img src="photos/photo2.jpg" alt="Are"><p class="photo-caption">are</p></div>
+                <div class="photo-item"><img src="photos/photo3.jpg" alt="So"><p class="photo-caption">so</p></div>
+                <div class="photo-item"><img src="photos/photo4.jpg" alt="Beautiful"><p class="photo-caption">beautiful</p></div>
+                <div class="photo-item"><img src="photos/photo5.jpg" alt="Like"><p class="photo-caption">like</p></div>
+                <div class="photo-item"><img src="photos/photo6.jpg" alt="An"><p class="photo-caption">an</p></div>
+            </div>
+            <button class="next-btn" onclick="nextSection(this)">🤍</button>
+        </section>
+
+        <section>
+            <p class="subtitle">a prayer for you</p>
+            <h2 class="title-sub serif">Doa Terbaikku</h2>
+            <div style="background: rgba(255, 255, 255, 0.03); border-left: 3px solid var(--accent); padding: 30px 40px; margin-top: 20px; max-width: 600px; border-radius: 0 15px 15px 0; box-shadow: 5px 5px 20px rgba(0,0,0,0.2);">
+                <p class="serif" style="font-size: 24px; font-style: italic; line-height: 1.8; color: #fff;">
+                    "Semoga semua cita-citamu dan anganmu dapat tercapai, semua doa yang kamu panjatkan diberi di waktu yang tepat. Semoga kamu selalu dikelilingi oleh orang-orang yang mencintaimu, dan semoga kamu selalu bahagia."
+                </p>
+            </div>
+            <button class="next-btn" onclick="nextSection(this)">🤍</button>
+        </section>
+
+        <section>
+            <div style="font-size: 28px; letter-spacing: 10px; margin-bottom: 20px;">🌸🌺🌹</div>
+            <p class="subtitle">always & forever</p>
+            <h1 class="title-sub serif">You Are Loved<br>Beyond Words</h1>
+            <p class="text-body" style="font-size: 14px; max-width: 600px;">
+                No matter where life takes us, know that somewhere in the universe, there is a garden blooming with every feeling I have ever held for you. You deserve the world. You deserve all the flowers. You deserve everything.
+            </p>
+            <p class="serif" style="margin-top: 50px; font-style: italic; color: var(--text-muted); font-size:18px;">
+                made with love, just for you 🤍
+            </p>
+        </section>
+        
+    </div>
+
+    <script src="script.js"></script>
 </body>
 </html>
