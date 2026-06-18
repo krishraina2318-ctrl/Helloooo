@@ -1,5 +1,4 @@
 /* ---------------- gate / mend ---------------- */
-
 const gate = document.getElementById('gate');
 const gateVessel = document.getElementById('gate-vessel');
 const openBtn = document.getElementById('open-btn');
@@ -14,28 +13,25 @@ let opened = false;
 function openLetter() {
     if (opened) return;
     opened = true;
-
     gateVessel.classList.add('mended');
-
     setTimeout(() => {
         gate.classList.add('fading');
         setTimeout(() => {
             gate.style.display = 'none';
             main.style.display = 'block';
+            musicWidget.classList.remove('hidden');
             requestAnimationFrame(() => { main.style.opacity = '1'; });
         }, 1150);
     }, 1100);
 }
 
 openBtn.addEventListener('click', openLetter);
-
 laterBtn.addEventListener('click', () => {
     gateButtons.classList.add('hidden');
     laterMsg.classList.remove('hidden');
 });
 
 /* ---------------- music widget ---------------- */
-
 const audio = document.getElementById('bg-audio');
 const mCover = document.getElementById('m-cover');
 const mTitle = document.getElementById('m-title');
@@ -46,77 +42,41 @@ const mNext = document.getElementById('m-next');
 const seekBar = document.getElementById('seek-bar');
 const mCurrent = document.getElementById('m-current');
 const mDuration = document.getElementById('m-duration');
-const musicNote = document.getElementById('music-note');
+const tracks = document.querySelectorAll('.track');
 
-const tracks = Array.from(document.querySelectorAll('.track')).map(el => ({
-    src: el.dataset.src,
-    title: el.dataset.title,
-    artist: el.dataset.artist,
-    cover: el.dataset.cover
-}));
-
-let currentTrack = -1;
+let currentTrack = 0;
 let isSeeking = false;
 
-function formatTime(s) {
-    if (!isFinite(s)) return '0:00';
-    const min = Math.floor(s / 60);
-    let sec = Math.floor(s % 60);
-    if (sec < 10) sec = '0' + sec;
-    return `${min}:${sec}`;
-}
-
-function showNote(text) {
-    musicNote.textContent = text;
-    musicNote.classList.add('show');
-}
-function hideNote() {
-    musicNote.classList.remove('show');
+function parseTimestamp(ts) {
+    if (!ts) return 0;
+    const parts = ts.split(':');
+    return parseInt(parts[0], 10) * 60 + parseInt(parts[1], 10);
 }
 
 function loadTrack(index) {
-    if (index < 0 || index >= tracks.length) return;
     currentTrack = index;
-    const t = tracks[index];
-
-    musicWidget.classList.remove('hidden');
-    mTitle.textContent = t.title;
-    mArtist.textContent = t.artist;
-    mCover.src = t.cover;
-    hideNote();
-
-    audio.src = t.src;
-    audio.play().then(() => {
-        mPlay.textContent = '⏸';
-    }).catch(() => {
-        showNote('song not added yet — drop it into assets/audio');
-        mPlay.textContent = '▶';
-    });
+    const track = tracks[index];
+    audio.src = track.dataset.src;
+    mCover.src = track.dataset.cover;
+    mTitle.textContent = track.dataset.title;
+    mArtist.textContent = track.dataset.artist;
+    
+    audio.currentTime = parseTimestamp(track.dataset.start || "0:00");
+    audio.play().catch(() => { mPlay.textContent = '▶'; });
 }
 
-document.querySelectorAll('.track').forEach((el, i) => {
-    el.addEventListener('click', () => loadTrack(i));
-    el.addEventListener('keypress', (e) => { if (e.key === 'Enter') loadTrack(i); });
+tracks.forEach((track, index) => {
+    track.addEventListener('click', () => loadTrack(index));
+    track.addEventListener('keypress', (e) => { if (e.key === 'Enter') loadTrack(index); });
 });
 
 mPlay.addEventListener('click', () => {
-    if (currentTrack === -1) { if (tracks.length) loadTrack(0); return; }
-    if (audio.paused) {
-        audio.play().then(() => mPlay.textContent = '⏸').catch(() => showNote('song not added yet — drop it into assets/audio'));
-    } else {
-        audio.pause();
-        mPlay.textContent = '▶';
-    }
+    if (audio.paused) audio.play();
+    else audio.pause();
 });
 
-mNext.addEventListener('click', () => {
-    if (!tracks.length) return;
-    loadTrack((currentTrack + 1) % tracks.length);
-});
-mPrev.addEventListener('click', () => {
-    if (!tracks.length) return;
-    loadTrack((currentTrack - 1 + tracks.length) % tracks.length);
-});
+mPrev.addEventListener('click', () => loadTrack((currentTrack - 1 + tracks.length) % tracks.length));
+mNext.addEventListener('click', () => loadTrack((currentTrack + 1) % tracks.length));
 
 if (seekBar) {
     seekBar.addEventListener('input', () => { isSeeking = true; });
@@ -127,35 +87,29 @@ if (seekBar) {
 }
 
 audio.addEventListener('timeupdate', () => {
-    if (audio.duration) {
-        if (!isSeeking) seekBar.value = (audio.currentTime / audio.duration) * 100;
+    if (audio.duration && !isSeeking) {
+        seekBar.value = (audio.currentTime / audio.duration) * 100;
         mCurrent.textContent = formatTime(audio.currentTime);
-        mDuration.textContent = formatTime(audio.duration);
     }
 });
+
+function formatTime(s) {
+    if (!isFinite(s)) return '0:00';
+    const m = Math.floor(s / 60);
+    const sec = Math.floor(s % 60);
+    return `${m}:${sec.toString().padStart(2, '0')}`;
+}
+
 audio.addEventListener('loadedmetadata', () => { mDuration.textContent = formatTime(audio.duration); });
 audio.addEventListener('pause', () => { mPlay.textContent = '▶'; });
 audio.addEventListener('play', () => { mPlay.textContent = '⏸'; });
-audio.addEventListener('ended', () => { if (tracks.length) loadTrack((currentTrack + 1) % tracks.length); });
-audio.addEventListener('error', () => {
-    showNote('song not added yet — drop it into assets/audio');
-    mPlay.textContent = '▶';
-});
-
-/* ---------------- video fallback ---------------- */
-
-document.querySelectorAll('.video-frame').forEach(frame => {
-    const video = frame.querySelector('video');
-    const missing = frame.querySelector('.video-missing');
-    video.addEventListener('error', () => missing.classList.add('show'));
-});
+audio.addEventListener('ended', () => { loadTrack((currentTrack + 1) % tracks.length); });
 
 /* ---------------- scroll reveal ---------------- */
-
 const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         entry.target.classList.toggle('in-view', entry.isIntersecting);
     });
 }, { threshold: 0.2 });
 
-document.querySelectorAll('#main section').forEach(sec => observer.observe(sec));
+document.querySelectorAll('#main section').forEach(s => observer.observe(s));
