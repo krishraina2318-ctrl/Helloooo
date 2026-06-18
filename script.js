@@ -3,15 +3,15 @@ const seekBar = document.getElementById('seek-bar');
 const currentTimeDisplay = document.getElementById('current-time');
 const durationDisplay = document.getElementById('duration');
 
-// FIXED PATHS: Added the 'assets/' folder prefix so GitHub Pages can locate your audio files!
+// CORRECTED PATHS: Files are in the root directory (matching image_9fe299.png)
 const playlist = [
-    { title: 'Jutti Meri Live', artist: 'Live Performance', cover: 'cover/Jutti-Meri-Live-1.jpg', src: 'assets/Jutti Meri Live.mp3' },
-    { title: 'Bairan', artist: 'PenduJatt', cover: 'cover/bairan.jpg', src: 'assets/bairan.mp3' },
-    { title: 'Par Chanaa De', artist: 'Coke Studio', cover: 'cover/par chana.jpg', src: 'assets/par_chanaa_de.mp3' },
-    { title: 'Mera Yaar', artist: 'PenduJatt', cover: 'cover/mera yaar.jpg', src: 'assets/mera_yaar.mp3' },
-    { title: 'Tajdar-E-Haram', artist: 'Coke Studio', cover: 'cover/tajiadar.jpg', src: 'assets/tajdar_e_haram.mp3' },
-    { title: 'Bulleya', artist: 'Sultan', cover: 'cover/bulleya.jpg', src: 'assets/bulleyya.mp3' },
-    { title: 'Perfect', artist: 'Ed Sheeran', cover: 'cover/perfect.jpg', src: 'assets/perfect.mp3' }
+    { title: 'Jutti Meri Live', artist: 'Live Performance', cover: 'cover/Jutti-Meri-Live-1.jpg', src: 'Jutti Meri Live.mp3' },
+    { title: 'Bairan', artist: 'PenduJatt', cover: 'cover/bairan.jpg', src: 'bairan.mp3' },
+    { title: 'Par Chanaa De', artist: 'Coke Studio', cover: 'cover/par chana.jpg', src: 'par_chanaa_de.mp3' },
+    { title: 'Mera Yaar', artist: 'PenduJatt', cover: 'cover/mera yaar.jpg', src: 'mera_yaar.mp3' },
+    { title: 'Tajdar-E-Haram', artist: 'Coke Studio', cover: 'cover/tajiadar.jpg', src: 'tajdar_e_haram.mp3' },
+    { title: 'Bulleya', artist: 'Sultan', cover: 'cover/bulleya.jpg', src: 'bulleyya.mp3' },
+    { title: 'Perfect', artist: 'Ed Sheeran', cover: 'cover/perfect.jpg', src: 'perfect.mp3' }
 ];
 
 let currentIndex = 0;
