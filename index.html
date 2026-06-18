@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>for Samyy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,500;0,600;1,400&family=Work+Sans:wght@300;400;500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ================= GATE ================= -->
+<div id="gate">
+    <div class="vessel-wrap" id="gate-vessel">
+        <svg viewBox="0 0 200 180" xmlns="http://www.w3.org/2000/svg">
+            <path class="heart-outline" d="M100,170 C100,170 20,110 20,65 C20,30 50,10 75,10 C90,10 100,20 100,35 C100,20 110,10 125,10 C150,10 180,30 180,65 C180,110 100,170 100,170 Z"/>
+            <path class="crack-base" d="M40,50 L90,90 L70,140"/>
+            <path class="crack-base" d="M160,60 L110,100 L130,150"/>
+            <path class="crack-base" d="M95,30 L105,70"/>
+            <path class="crack-gold" d="M40,50 L90,90 L70,140"/>
+            <path class="crack-gold crack-2" d="M160,60 L110,100 L130,150"/>
+            <path class="crack-gold crack-3" d="M95,30 L105,70"/>
+        </svg>
+    </div>
+    <span class="eyebrow">for samyy</span>
+    <h1 class="gate-heading">before you open this</h1>
+    <p class="gate-sub">take whatever time you need. it isn't going anywhere.</p>
+
+    <div class="gate-buttons" id="gate-buttons">
+        <button class="btn btn-primary" id="open-btn">open it</button>
+        <button class="btn btn-ghost" id="later-btn">not right now</button>
+    </div>
+    <p class="later-msg hidden" id="later-msg">okay. it'll be here whenever you're ready — no pressure, no rush.</p>
+</div>
+
+<!-- ================= MAIN ================= -->
+<div id="main">
+
+    <audio id="bg-audio" preload="none"></audio>
+
+    <div class="music-widget hidden" id="music-widget">
+        <div class="music-top">
+            <img id="m-cover" src="assets/cover/cover1.jpg" alt="">
+            <div class="music-info">
+                <span class="m-title" id="m-title">pick a song below</span>
+                <span class="m-artist" id="m-artist">—</span>
+            </div>
+        </div>
+        <input type="range" id="seek-bar" value="0" min="0" max="100" step="0.1">
+        <div class="time-row"><span id="m-current">0:00</span><span id="m-duration">0:00</span></div>
+        <div class="controls">
+            <span id="m-prev">⏮</span>
+            <span id="m-play">▶</span>
+            <span id="m-next">⏭</span>
+        </div>
+        <span class="music-note" id="music-note">song not added yet — drop it into assets/audio</span>
+    </div>
+
+    <!-- fragment 01 — hero -->
+    <section class="hero">
+        <span class="eyebrow">fragment 01 — the start</span>
+        <h1>I'm sorry.</h1>
+        <p class="lede">Not the kind of sorry that's followed by a "but." Just that — I'm sorry.</p>
+        <span class="scroll-cue">keep going</span>
+    </section>
+
+    <!-- fragment 02 -->
+    <section>
+        <span class="eyebrow">fragment 02 — what happened</span>
+        <h2 class="section-title">Let me say it plainly</h2>
+        <div class="write-here">
+            <span class="tag">✎ write this yourself</span>
+            <p>[Name exactly what you did. No softening it, no "but you also..." — just the thing itself, in a sentence or two.]</p>
+        </div>
+    </section>
+
+    <!-- fragment 03 -->
+    <section>
+        <span class="eyebrow">fragment 03 — why it mattered</span>
+        <h2 class="section-title">I understand why it hurt</h2>
+        <div class="write-here">
+            <span class="tag">✎ write this yourself</span>
+            <p>[Say what it cost her — her time, her trust, her feelings — in her terms, not yours.]</p>
+        </div>
+    </section>
+
+    <!-- fragment 04 — photos -->
+    <section>
+        <span class="eyebrow">fragment 04 — what I don't want to lose</span>
+        <h2 class="section-title">Pieces I'm holding onto</h2>
+        <div class="photo-grid">
+            <div class="photo-item"><img src="assets/photos/photo1.jpg" alt="memory 1"><span class="photo-cap">caption</span></div>
+            <div class="photo-item"><img src="assets/photos/photo2.jpg" alt="memory 2"><span class="photo-cap">caption</span></div>
+            <div class="photo-item"><img src="assets/photos/photo3.jpg" alt="memory 3"><span class="photo-cap">caption</span></div>
+            <div class="photo-item"><img src="assets/photos/photo4.jpg" alt="memory 4"><span class="photo-cap">caption</span></div>
+            <div class="photo-item"><img src="assets/photos/photo5.jpg" alt="memory 5"><span class="photo-cap">caption</span></div>
+            <div class="photo-item"><img src="assets/photos/photo6.jpg" alt="memory 6"><span class="photo-cap">caption</span></div>
+        </div>
+    </section>
+
+    <!-- fragment 05 — music -->
+    <section>
+        <span class="eyebrow">fragment 05 — songs for when words aren't enough</span>
+        <h2 class="section-title">Something to listen to</h2>
+        <div class="playlist">
+            <div class="track" tabindex="0" data-src="assets/audio/song1.mp3" data-title="song one" data-artist="—" data-cover="assets/cover/cover1.jpg">
+                <img src="assets/cover/cover1.jpg" alt=""><div><div class="t-title">song one</div><div class="t-artist">—</div></div>
+            </div>
+            <div class="track" tabindex="0" data-src="assets/audio/song2.mp3" data-title="song two" data-artist="—" data-cover="assets/cover/cover2.jpg">
+                <img src="assets/cover/cover2.jpg" alt=""><div><div class="t-title">song two</div><div class="t-artist">—</div></div>
+            </div>
+            <div class="track" tabindex="0" data-src="assets/audio/song3.mp3" data-title="song three" data-artist="—" data-cover="assets/cover/cover3.jpg">
+                <img src="assets/cover/cover3.jpg" alt=""><div><div class="t-title">song three</div><div class="t-artist">—</div></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- fragment 06 — video -->
+    <section>
+        <span class="eyebrow">fragment 06 — memories</span>
+        <h2 class="section-title">Watch when you're ready</h2>
+        <div class="video-grid">
+            <div class="video-frame">
+                <video controls controlsList="nodownload" poster="assets/videos/video1-poster.jpg">
+                    <source src="assets/videos/video1.mp4" type="video/mp4">
+                </video>
+                <div class="video-missing">video not added yet — drop it into assets/videos</div>
+            </div>
+            <div class="video-frame">
+                <video controls controlsList="nodownload" poster="assets/videos/video2-poster.jpg">
+                    <source src="assets/videos/video2.mp4" type="video/mp4">
+                </video>
+                <div class="video-missing">video not added yet — drop it into assets/videos</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- fragment 07 — promises -->
+    <section>
+        <span class="eyebrow">fragment 07 — what changes now</span>
+        <h2 class="section-title">Not just words</h2>
+        <div class="promise-list">
+            <div class="promise"><span class="num">01</span><p>[A specific, checkable thing you'll actually do differently.]</p></div>
+            <div class="promise"><span class="num">02</span><p>[Another concrete one — something she can hold you to.]</p></div>
+            <div class="promise"><span class="num">03</span><p>[A third, if there is one. Don't pad it just to have three.]</p></div>
+        </div>
+    </section>
+
+    <!-- closing -->
+    <section class="closing">
+        <div class="vessel-wrap mended">
+            <svg viewBox="0 0 200 180" xmlns="http://www.w3.org/2000/svg">
+                <path class="heart-outline" d="M100,170 C100,170 20,110 20,65 C20,30 50,10 75,10 C90,10 100,20 100,35 C100,20 110,10 125,10 C150,10 180,30 180,65 C180,110 100,170 100,170 Z"/>
+                <path class="crack-base" d="M40,50 L90,90 L70,140"/>
+                <path class="crack-base" d="M160,60 L110,100 L130,150"/>
+                <path class="crack-base" d="M95,30 L105,70"/>
+                <path class="crack-gold" d="M40,50 L90,90 L70,140"/>
+                <path class="crack-gold crack-2" d="M160,60 L110,100 L130,150"/>
+                <path class="crack-gold crack-3" d="M95,30 L105,70"/>
+            </svg>
+        </div>
+        <span class="eyebrow">the whole</span>
+        <h2>Mended, not despite the crack — because of it</h2>
+        <p class="lede">No rush on your end. I'm here when you're ready to talk, or not talk, or just send a meme like nothing happened. Whatever you need.</p>
+        <p class="signoff">[sign it the way you'd actually say it]</p>
+    </section>
+
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
