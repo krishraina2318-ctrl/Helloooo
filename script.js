@@ -4,20 +4,21 @@ const seekBar = document.getElementById('seek-bar');
 const currentTimeDisplay = document.getElementById('current-time');
 const durationDisplay = document.getElementById('duration');
 
-// Make sure these exact filenames match what you see in your GitHub file list!
 const playlist = [
     { src: 'Jutti Meri Live.mp3', title: 'Jutti Meri Live', artist: 'Live Performance', cover: 'cover/Jutti-Meri-Live-1.jpg' },
     { src: 'Bairan (PenduJatt.Com.Se).mp3', title: 'Bairan', artist: 'PenduJatt', cover: 'cover/bairan.jpg' },
     { src: 'Par Chanaa De (PenduJatt.Com.Se).mp3', title: 'Par Chanaa De', artist: 'Coke Studio', cover: 'cover/par chana.jpg' },
     { src: 'Mera Yaar (PenduJatt.Com.Se).mp3', title: 'Mera Yaar', artist: 'PenduJatt', cover: 'cover/mera yaar.jpg' },
-    { src: 'Tajdar-E-Haram (PenduJatt.Com.Se).mp3', title: 'Tajdar-E-Haram', artist: 'Coke Studio', cover: 'cover/tajiadar.jpg' }
+    { src: 'Tajdar-E-Haram (PenduJatt.Com.Se).mp3', title: 'Tajdar-E-Haram', artist: 'Coke Studio', cover: 'cover/tajiadar.jpg' },
+    { src: 'Sultan_Sultan_-_Bulleyya_(mp3.pm).mp3', title: 'Bulleya', artist: 'Sultan', cover: 'cover/bulleya.jpg' },
+    { src: 'Edd_Sheeran_-_Perfect_(mp3.pm).mp3', title: 'Perfect', artist: 'Ed Sheeran', cover: 'cover/perfect.jpg' }
 ];
 
 let currentSongIndex = 0; 
 
 function toggleMusic() {
     if(audio.paused) { 
-        audio.play().catch(err => console.log("Playback error:", err)); 
+        audio.play().catch(err => console.log("Playback blocked:", err)); 
         playPauseBtn.innerText = '⏸'; 
     } else { 
         audio.pause(); 
@@ -27,7 +28,7 @@ function toggleMusic() {
 
 function changeSong(songSrc, songTitle, songArtist, coverSrc) {
     audio.src = songSrc; 
-    audio.load(); // Forces the browser to load the new audio file path
+    audio.load();
     
     document.getElementById('player-title').innerText = songTitle;
     document.getElementById('player-artist').innerText = songArtist;
@@ -84,7 +85,7 @@ audio.addEventListener('pause', () => playPauseBtn.innerText = '▶');
 audio.addEventListener('play', () => playPauseBtn.innerText = '⏸');
 audio.addEventListener('ended', nextSong);
 
-// Petals
+// Cherry Blossom Petals setup
 const petalsContainer = document.getElementById('petals-container');
 if(petalsContainer) {
     for (let i = 0; i < 35; i++) {
@@ -180,78 +181,3 @@ const sectionObserver = new IntersectionObserver((entries) => {
 }, { root: null, threshold: 0.2 });
 
 document.querySelectorAll('section').forEach(sec => sectionObserver.observe(sec));
-            flower.style.opacity = '1';
-        }, 10);
-    }
-}
-
-let isGiftOpened = false;
-const popupOverlay = document.getElementById('popup-overlay');
-const popupBox = document.getElementById('popup-box');
-const btnNo = document.getElementById('btn-no');
-
-function showPopup() {
-    if(isGiftOpened) return;
-    if(popupOverlay) {
-        popupOverlay.classList.add('show');
-    } else {
-        executeOpenGift();
-    }
-}
-
-function confirmOpenGift() {
-    if(popupOverlay) popupOverlay.classList.remove('show');
-    executeOpenGift();
-}
-
-function moveButton() {
-    if(!btnNo || !popupBox) return;
-    btnNo.style.position = 'absolute';
-    const maxX = popupBox.clientWidth - btnNo.clientWidth - 20;
-    const maxY = popupBox.clientHeight - btnNo.clientHeight - 20;
-    btnNo.style.left = `${Math.max(10, Math.floor(Math.random() * maxX))}px`;
-    btnNo.style.top = `${Math.max(10, Math.floor(Math.random() * maxY))}px`;
-}
-
-if (btnNo) {
-    btnNo.addEventListener('mouseover', moveButton);
-    btnNo.addEventListener('click', (e) => { e.preventDefault(); moveButton(); });
-}
-
-function executeOpenGift() {
-    if(isGiftOpened) return;
-    isGiftOpened = true;
-    changeSong('Jutti Meri Live.mp3', 'Jutti Meri Live', 'Live Performance', 'cover/Jutti-Meri-Live-1.jpg');
-    document.getElementById('gift-icon').style.display = 'none';
-    document.getElementById('tap-text').style.display = 'none';
-    createBurst(); 
-    setTimeout(() => {
-        document.getElementById('cover-screen').style.opacity = '0';
-        setTimeout(() => {
-            document.getElementById('cover-screen').style.display = 'none';
-            document.getElementById('main-content').style.display = 'block';
-            setTimeout(() => { document.getElementById('main-content').style.opacity = '1'; }, 50);
-        }, 1000);
-    }, 800);
-}
-
-function nextSection(btn) {
-    const nextSec = btn.closest('section').nextElementSibling;
-    if (nextSec && nextSec.tagName === 'SECTION') nextSec.scrollIntoView({ behavior: 'smooth', block: 'start' });
-}
-
-const sectionObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) entry.target.classList.add('in-view');
-        else entry.target.classList.remove('in-view');
-    });
-}, { root: null, threshold: 0.2 });
-
-document.querySelectorAll('section').forEach(sec => sectionObserver.observe(sec));
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        entry.target.classList.toggle('in-view', entry.isIntersecting);
-    });
-}, { threshold: 0.2 });
-
-document.querySelectorAll('#main section').forEach(s => observer.observe(s));
