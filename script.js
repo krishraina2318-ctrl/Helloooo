@@ -3,103 +3,135 @@ const seekBar = document.getElementById('seek-bar');
 const currentTimeDisplay = document.getElementById('current-time');
 const durationDisplay = document.getElementById('duration');
 
-// FIX: Sources mapped to match your exact GitHub repository filenames perfectly
+// FIXED PATHS: Added the 'assets/' folder prefix so GitHub Pages can locate your audio files!
 const playlist = [
-    { title: 'Jutti Meri Live', artist: 'Live Performance', cover: 'cover/Jutti-Meri-Live-1.jpg', src: 'Jutti Meri Live.mp3' },
-    { title: 'Bairan', artist: 'PenduJatt', cover: 'cover/bairan.jpg', src: 'bairan.mp3' },
-    { title: 'Par Chanaa De', artist: 'Coke Studio', cover: 'cover/par chana.jpg', src: 'par_chanaa_de.mp3' },
-    { title: 'Mera Yaar', artist: 'PenduJatt', cover: 'cover/mera yaar.jpg', src: 'mera_yaar.mp3' },
-    { title: 'Tajdar-E-Haram', artist: 'Coke Studio', cover: 'cover/tajiadar.jpg', src: 'tajdar_e_haram.mp3' },
-    { title: 'Bulleya', artist: 'Sultan', cover: 'cover/bulleya.jpg', src: 'bulleyya.mp3' },
-    { title: 'Perfect', artist: 'Ed Sheeran', cover: 'cover/perfect.jpg', src: 'perfect.mp3' }
+    { title: 'Jutti Meri Live', artist: 'Live Performance', cover: 'cover/Jutti-Meri-Live-1.jpg', src: 'assets/Jutti Meri Live.mp3' },
+    { title: 'Bairan', artist: 'PenduJatt', cover: 'cover/bairan.jpg', src: 'assets/bairan.mp3' },
+    { title: 'Par Chanaa De', artist: 'Coke Studio', cover: 'cover/par chana.jpg', src: 'assets/par_chanaa_de.mp3' },
+    { title: 'Mera Yaar', artist: 'PenduJatt', cover: 'cover/mera yaar.jpg', src: 'assets/mera_yaar.mp3' },
+    { title: 'Tajdar-E-Haram', artist: 'Coke Studio', cover: 'cover/tajiadar.jpg', src: 'assets/tajdar_e_haram.mp3' },
+    { title: 'Bulleya', artist: 'Sultan', cover: 'cover/bulleya.jpg', src: 'assets/bulleyya.mp3' },
+    { title: 'Perfect', artist: 'Ed Sheeran', cover: 'cover/perfect.jpg', src: 'assets/perfect.mp3' }
 ];
 
 let currentIndex = 0;
 const audio = document.getElementById('main-audio');
 let isSeeking = false;
 
-function initAudioPlayer() {
-    audio.addEventListener('timeupdate', updateProgress);
-    audio.addEventListener('loadedmetadata', updateDuration);
-    audio.addEventListener('ended', nextSong);
-
-    if (seekBar) { 
-        seekBar.addEventListener('input', () => isSeeking = true);
-        seekBar.addEventListener('change', () => {
-            audio.currentTime = (seekBar.value / 100) * audio.duration;
-            isSeeking = false;
-        });
+function initPlayer() {
+    if (playlist.length > 0) {
+        switchToTrack(0);
+        audio.pause();
+        if(playPauseBtn) playPauseBtn.innerText = '▶';
     }
-}
-
-function updateProgress() {
-    if (audio.duration) {
-        if (seekBar && !isSeeking) seekBar.value = (audio.currentTime / audio.duration) * 100;
-        if (currentTimeDisplay) currentTimeDisplay.innerText = formatTime(audio.currentTime);
-    }
-}
-
-function updateDuration() {
-    if (durationDisplay) durationDisplay.innerText = formatTime(audio.duration);
-}
-
-function switchToTrack(index) {
-    currentIndex = index;
-    
-    audio.src = playlist[index].src;
-    
-    document.getElementById('player-title').innerText = playlist[index].title;
-    document.getElementById('player-artist').innerText = playlist[index].artist;
-    document.getElementById('player-cover').src = playlist[index].cover;
-    
-    audio.play().then(() => {
-        playPauseBtn.innerText = '⏸';
-    }).catch(err => {
-        console.log("Playback blocked or failed:", err);
-    });
 }
 
 function toggleMusic() {
     if (!audio.src) {
-        audio.src = playlist[currentIndex].src;
+        switchToTrack(currentIndex);
     }
-    if (audio.paused) { 
-        audio.play().catch(err => console.log(err)); 
-        playPauseBtn.innerText = '⏸'; 
-    } else { 
-        audio.pause(); 
-        playPauseBtn.innerText = '▶'; 
+    if (audio.paused) {
+        audio.play().catch(err => console.log("Playback error:", err));
+        if(playPauseBtn) playPauseBtn.innerText = '⏸';
+    } else {
+        audio.pause();
+        if(playPauseBtn) playPauseBtn.innerText = '▶';
     }
+}
+
+function switchToTrack(index) {
+    if (index < 0 || index >= playlist.length) return;
+    currentIndex = index;
+    
+    audio.src = playlist[currentIndex].src;
+    audio.load();
+
+    const titleEl = document.getElementById('player-title');
+    const artistEl = document.getElementById('player-artist');
+    const coverEl = document.getElementById('player-cover');
+
+    if (titleEl) titleEl.innerText = playlist[currentIndex].title;
+    if (artistEl) artistEl.innerText = playlist[currentIndex].artist;
+    if (coverEl) coverEl.src = playlist[currentIndex].cover;
+
+    audio.play().then(() => {
+        if(playPauseBtn) playPauseBtn.innerText = '⏸';
+    }).catch(err => {
+        console.log("Auto-play prevented or failed:", err);
+        if(playPauseBtn) playPauseBtn.innerText = '▶';
+    });
 }
 
 function nextSong() {
-    let target = (currentIndex + 1) % playlist.length;
-    switchToTrack(target);
+    currentIndex = (currentIndex + 1) % playlist.length;
+    switchToTrack(currentIndex);
 }
 
 function prevSong() {
-    let target = (currentIndex - 1 + playlist.length) % playlist.length;
-    switchToTrack(target);
+    currentIndex = (currentIndex - 1 + playlist.length) % playlist.length;
+    switchToTrack(currentIndex);
+}
+
+function changeSong(src, title, artist, cover) {
+    const foundIndex = playlist.findIndex(item => item.src === src);
+    if (foundIndex !== -1) {
+        switchToTrack(foundIndex);
+    } else {
+        audio.src = src;
+        const titleEl = document.getElementById('player-title');
+        const artistEl = document.getElementById('player-artist');
+        const coverEl = document.getElementById('player-cover');
+        if (titleEl) titleEl.innerText = title;
+        if (artistEl) artistEl.innerText = artist;
+        if (coverEl) coverEl.src = cover;
+        audio.play().catch(e => console.log(e));
+        if(playPauseBtn) playPauseBtn.innerText = '⏸';
+    }
 }
 
 function formatTime(seconds) {
     if (isNaN(seconds)) return "0:00";
-    let min = Math.floor(seconds / 60);
-    let sec = Math.floor(seconds % 60);
-    return `${min}:${sec < 10 ? '0' : ''}${sec}`;
+    const mins = Math.floor(seconds / 60);
+    const secs = Math.floor(seconds % 60);
+    return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
 }
 
-// Falling petals feature
+if (seekBar) {
+    seekBar.addEventListener('input', () => { isSeeking = true; });
+    seekBar.addEventListener('change', () => {
+        if (audio.duration) {
+            audio.currentTime = (seekBar.value / 100) * audio.duration;
+        }
+        isSeeking = false;
+    });
+}
+
+if (audio) {
+    audio.addEventListener('timeupdate', () => {
+        if (audio.duration && !isSeeking) {
+            if (seekBar) seekBar.value = (audio.currentTime / audio.duration) * 100;
+            if (currentTimeDisplay) currentTimeDisplay.innerText = formatTime(audio.currentTime);
+        }
+    });
+
+    audio.addEventListener('loadedmetadata', () => {
+        if (durationDisplay) durationDisplay.innerText = formatTime(audio.duration);
+    });
+
+    audio.addEventListener('ended', () => { nextSong(); });
+}
+
 const petalsContainer = document.getElementById('petals-container');
 if (petalsContainer) {
     for (let i = 0; i < 35; i++) {
-        let petal = document.createElement('div');
+        const petal = document.createElement('div');
         petal.classList.add('petal');
-        let size = Math.random() * 8 + 6; 
-        petal.style.width = size + 'px'; petal.style.height = size + 'px';
-        petal.style.left = Math.random() * 100 + 'vw';
-        petal.style.animationDuration = Math.random() * 6 + 6 + 's';
-        petal.style.animationDelay = Math.random() * 7 + 's';
+        const size = Math.random() * 8 + 6;
+        petal.style.width = `${size}px`;
+        petal.style.height = `${size}px`;
+        petal.style.left = `${Math.random() * 100}vw`;
+        petal.style.animationDuration = `${Math.random() * 6 + 6}s`;
+        petal.style.animationDelay = `${Math.random() * 7}s`;
         petalsContainer.appendChild(petal);
     }
 }
@@ -107,16 +139,20 @@ if (petalsContainer) {
 function createBurst() {
     const emojis = ['🌸', '🌺', '🌹', '✨', '💖'];
     const container = document.getElementById('cover-screen');
+    if (!container) return;
     for (let i = 0; i < 15; i++) {
-        let flower = document.createElement('div');
+        const flower = document.createElement('div');
         flower.innerText = emojis[Math.floor(Math.random() * emojis.length)];
         flower.classList.add('burst-flower');
-        flower.style.left = '50%'; flower.style.top = '50%';
+        flower.style.left = '50%';
+        flower.style.top = '50%';
         container.appendChild(flower);
         setTimeout(() => {
             const angle = Math.random() * Math.PI * 2;
             const velocity = 100 + Math.random() * 150;
-            flower.style.transform = `translate(${Math.cos(angle) * velocity}px, ${Math.sin(angle) * velocity}px) rotate(${Math.random()*360}deg) scale(${0.5 + Math.random()})`;
+            const tx = Math.cos(angle) * velocity;
+            const ty = Math.sin(angle) * velocity;
+            flower.style.transform = `translate(${tx}px, ${ty}px) rotate(${Math.random() * 360}deg) scale(${0.5 + Math.random()})`;
             flower.style.opacity = '1';
         }, 10);
     }
@@ -129,19 +165,27 @@ const btnNo = document.getElementById('btn-no');
 
 function showPopup() {
     if (isGiftOpened) return;
-    popupOverlay.classList.add('show');
+    if (popupOverlay) {
+        popupOverlay.classList.add('show');
+    } else {
+        executeOpenGift();
+    }
 }
 
 function confirmOpenGift() {
-    popupOverlay.classList.remove('show');
+    if (popupOverlay) popupOverlay.classList.remove('show');
     executeOpenGift();
 }
 
 function moveButton() {
     if (!btnNo || !popupBox) return;
     btnNo.style.position = 'absolute';
-    const maxX = popupBox.clientWidth - btnNo.clientWidth - 20;
-    const maxY = popupBox.clientHeight - btnNo.clientHeight - 20;
+    const boxWidth = popupBox.clientWidth;
+    const boxHeight = popupBox.clientHeight;
+    const btnWidth = btnNo.clientWidth;
+    const btnHeight = btnNo.clientHeight;
+    const maxX = boxWidth - btnWidth - 20;
+    const maxY = boxHeight - btnHeight - 20;
     btnNo.style.left = `${Math.max(10, Math.floor(Math.random() * maxX))}px`;
     btnNo.style.top = `${Math.max(10, Math.floor(Math.random() * maxY))}px`;
 }
@@ -155,15 +199,18 @@ function executeOpenGift() {
     if (isGiftOpened) return;
     isGiftOpened = true;
     switchToTrack(0);
-    document.getElementById('gift-icon').style.display = 'none';
-    document.getElementById('tap-text').style.display = 'none';
+    if (document.getElementById('gift-icon')) document.getElementById('gift-icon').style.display = 'none';
+    if (document.getElementById('tap-text')) document.getElementById('tap-text').style.display = 'none';
     createBurst(); 
     setTimeout(() => {
-        document.getElementById('cover-screen').style.opacity = '0';
+        if (document.getElementById('cover-screen')) document.getElementById('cover-screen').style.opacity = '0';
         setTimeout(() => {
-            document.getElementById('cover-screen').style.display = 'none';
-            document.getElementById('main-content').style.display = 'block';
-            setTimeout(() => { document.getElementById('main-content').style.opacity = '1'; }, 50);
+            if (document.getElementById('cover-screen')) document.getElementById('cover-screen').style.display = 'none';
+            const mainContent = document.getElementById('main-content');
+            if (mainContent) {
+                mainContent.style.display = 'block';
+                setTimeout(() => { mainContent.style.opacity = '1'; }, 50);
+            }
         }, 1000);
     }, 800);
 }
@@ -178,8 +225,10 @@ const sectionObserver = new IntersectionObserver((entries) => {
         if (entry.isIntersecting) entry.target.classList.add('in-view');
         else entry.target.classList.remove('in-view');
     });
-}, { root: null, threshold: 0.2 });
+}, { root: null, rootMargin: '0px', threshold: 0.2 });
 
-document.querySelectorAll('section').forEach(sec => sectionObserver.observe(sec));
+document.querySelectorAll('section').forEach(sec => {
+    sectionObserver.observe(sec);
+});
 
-initAudioPlayer();
+window.addEventListener('DOMContentLoaded', initPlayer);
