@@ -7,7 +7,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
     
     <style>
-        /* ALL CSS BAKED IN TO PREVENT CACHING BUGS */
         :root {
             --bg-dark: #1f0b17; --bg-card: rgba(255, 255, 255, 0.04);
             --text-main: #fce4ec; --text-muted: #d4a5b9; --accent: #e57373;
@@ -32,7 +31,6 @@
         }
         .burst-flower { position: absolute; font-size: 30px; opacity: 0; pointer-events: none; transition: all 1s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
 
-        /* THE BULLETPROOF POPUP OVERLAY */
         #popup-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0, 0, 0, 0.85); display: flex; justify-content: center; align-items: center;
@@ -130,9 +128,16 @@
 </head>
 <body>
 
-    <audio id="bg-music">
-        <source src="Jutti Meri Live.mp3" type="audio/mpeg">
-    </audio>
+    <!-- FILENAMES EXACTLY MATCHING YOUR GITHUB REPOSITORY -->
+    <div style="display:none;">
+        <audio id="audio-0" preload="auto"><source src="Jutti Meri Live.mp3" type="audio/mpeg"></audio>
+        <audio id="audio-1" preload="auto"><source src="Bairan (PenduJatt.Com.Se).mp3" type="audio/mpeg"></audio>
+        <audio id="audio-2" preload="auto"><source src="Par Chanaa De (PenduJatt.Com.Se).mp3" type="audio/mpeg"></audio>
+        <audio id="audio-3" preload="auto"><source src="Mera Yaar (PenduJatt.Com.Se).mp3" type="audio/mpeg"></audio>
+        <audio id="audio-4" preload="auto"><source src="Tajdar-E-Haram (PenduJatt.Com.Se).mp3" type="audio/mpeg"></audio>
+        <audio id="audio-5" preload="auto"><source src="Sultan_Sultan_-_Bulleyya_(mp3.pm).mp3" type="audio/mpeg"></audio>
+        <audio id="audio-6" preload="auto"><source src="Edd_Sheeran_-_Perfect_(mp3.pm).mp3" type="audio/mpeg"></audio>
+    </div>
 
     <div class="petals" id="petals-container"></div>
 
@@ -141,7 +146,6 @@
         <div class="tap-text" id="tap-text">Surprise for my darling 🤍</div>
     </div>
 
-    <!-- CLEANED UP POPUP -->
     <div id="popup-overlay">
         <div id="popup-box">
             <h3 class="serif">Are you sure you want to open your surprise? 🥺</h3>
@@ -190,31 +194,31 @@
             <h2 class="title-sub serif">Songs That Remind Me of You</h2>
             <p class="subtitle">click cover art to change the song</p>
             <div class="playlist-grid">
-                <div class="photo-item" onclick="changeSong('Jutti Meri Live.mp3', 'Jutti Meri Live', 'Live Performance', 'cover/Jutti-Meri-Live-1.jpg')">
+                <div class="photo-item" onclick="switchToTrack(0)">
                     <img src="cover/Jutti-Meri-Live-1.jpg" alt="Cover" style="filter: none;">
                     <p class="photo-caption" style="font-size: 13px; margin-top: 5px; color: #fff;">Jutti Meri Live</p>
                 </div>
-                <div class="photo-item" onclick="changeSong('Bairan (PenduJatt.Com.Se).mp3', 'Bairan', 'PenduJatt', 'cover/bairan.jpg')">
+                <div class="photo-item" onclick="switchToTrack(1)">
                     <img src="cover/bairan.jpg" alt="Cover" style="filter: none;">
                     <p class="photo-caption" style="font-size: 13px; margin-top: 5px; color: #fff;">Bairan</p>
                 </div>
-                <div class="photo-item" onclick="changeSong('Par Chanaa De (PenduJatt.Com.Se).mp3', 'Par Chanaa De', 'Coke Studio', 'cover/par chana.jpg')">
+                <div class="photo-item" onclick="switchToTrack(2)">
                     <img src="cover/par chana.jpg" alt="Cover" style="filter: none;">
                     <p class="photo-caption" style="font-size: 13px; margin-top: 5px; color: #fff;">Par Chanaa De</p>
                 </div>
-                <div class="photo-item" onclick="changeSong('Mera Yaar (PenduJatt.Com.Se).mp3', 'Mera Yaar', 'PenduJatt', 'cover/mera yaar.jpg')">
+                <div class="photo-item" onclick="switchToTrack(3)">
                     <img src="cover/mera yaar.jpg" alt="Cover" style="filter: none;">
                     <p class="photo-caption" style="font-size: 13px; margin-top: 5px; color: #fff;">Mera Yaar</p>
                 </div>
-                <div class="photo-item" onclick="changeSong('Tajdar-E-Haram (PenduJatt.Com.Se).mp3', 'Tajdar-E-Haram', 'Coke Studio', 'cover/tajiadar.jpg')">
+                <div class="photo-item" onclick="switchToTrack(4)">
                     <img src="cover/tajiadar.jpg" alt="Cover" style="filter: none;">
                     <p class="photo-caption" style="font-size: 13px; margin-top: 5px; color: #fff;">Tajdar-E-Haram</p>
                 </div>
-                <div class="photo-item" onclick="changeSong('Sultan_Sultan_-_Bulleyya_(mp3.pm).mp3', 'Bulleya', 'Sultan', 'cover/bulleya.jpg')">
+                <div class="photo-item" onclick="switchToTrack(5)">
                     <img src="cover/bulleya.jpg" alt="Cover" style="filter: none;">
                     <p class="photo-caption" style="font-size: 13px; margin-top: 5px; color: #fff;">Bulleya</p>
                 </div>
-                <div class="photo-item" onclick="changeSong('Edd_Sheeran_-_Perfect_(mp3.pm).mp3', 'Perfect', 'Ed Sheeran', 'cover/perfect.jpg')">
+                <div class="photo-item" onclick="switchToTrack(6)">
                     <img src="cover/perfect.jpg" alt="Cover" style="filter: none;">
                     <p class="photo-caption" style="font-size: 13px; margin-top: 5px; color: #fff;">Perfect</p>
                 </div>
@@ -287,29 +291,71 @@
         </section>
     </div>
 
-    <!-- ALL JAVASCRIPT BAKED IN -->
     <script>
-        const audio = document.getElementById('bg-music');
         const playPauseBtn = document.getElementById('play-pause-btn');
         const seekBar = document.getElementById('seek-bar');
         const currentTimeDisplay = document.getElementById('current-time');
         const durationDisplay = document.getElementById('duration');
 
         const playlist = [
-            { src: 'Jutti Meri Live.mp3', title: 'Jutti Meri Live', artist: 'Live Performance', cover: 'cover/Jutti-Meri-Live-1.jpg' },
-            { src: 'Bairan (PenduJatt.Com.Se).mp3', title: 'Bairan', artist: 'PenduJatt', cover: 'cover/bairan.jpg' },
-            { src: 'Par Chanaa De (PenduJatt.Com.Se).mp3', title: 'Par Chanaa De', artist: 'Coke Studio', cover: 'cover/par chana.jpg' },
-            { src: 'Mera Yaar (PenduJatt.Com.Se).mp3', title: 'Mera Yaar', artist: 'PenduJatt', cover: 'cover/mera yaar.jpg' },
-            { src: 'Tajdar-E-Haram (PenduJatt.Com.Se).mp3', title: 'Tajdar-E-Haram', artist: 'Coke Studio', cover: 'cover/tajiadar.jpg' },
-            { src: 'Sultan_Sultan_-_Bulleyya_(mp3.pm).mp3', title: 'Bulleya', artist: 'Sultan', cover: 'cover/bulleya.jpg' },
-            { src: 'Edd_Sheeran_-_Perfect_(mp3.pm).mp3', title: 'Perfect', artist: 'Ed Sheeran', cover: 'cover/perfect.jpg' }
+            { title: 'Jutti Meri Live', artist: 'Live Performance', cover: 'cover/Jutti-Meri-Live-1.jpg' },
+            { title: 'Bairan', artist: 'PenduJatt', cover: 'cover/bairan.jpg' },
+            { title: 'Par Chanaa De', artist: 'Coke Studio', cover: 'cover/par chana.jpg' },
+            { title: 'Mera Yaar', artist: 'PenduJatt', cover: 'cover/mera yaar.jpg' },
+            { title: 'Tajdar-E-Haram', artist: 'Coke Studio', cover: 'cover/tajiadar.jpg' },
+            { title: 'Bulleya', artist: 'Sultan', cover: 'cover/bulleya.jpg' },
+            { title: 'Perfect', artist: 'Ed Sheeran', cover: 'cover/perfect.jpg' }
         ];
 
-        let currentSongIndex = 0; 
+        let currentIndex = 0;
+        let audio = document.getElementById('audio-0');
+
+        function setupAudioListeners(el) {
+            el.removeEventListener('timeupdate', updateProgress);
+            el.removeEventListener('loadedmetadata', updateDuration);
+            el.removeEventListener('ended', nextSong);
+
+            el.addEventListener('timeupdate', updateProgress);
+            el.addEventListener('loadedmetadata', updateDuration);
+            el.addEventListener('ended', nextSong);
+        }
+
+        function updateProgress() {
+            if (audio.duration) {
+                if (seekBar && !isSeeking) seekBar.value = (audio.currentTime / audio.duration) * 100;
+                if (currentTimeDisplay) currentTimeDisplay.innerText = formatTime(audio.currentTime);
+            }
+        }
+
+        function updateDuration() {
+            if (durationDisplay) durationDisplay.innerText = formatTime(audio.duration);
+        }
+
+        function switchToTrack(index) {
+            audio.pause();
+            
+            currentIndex = index;
+            audio = document.getElementById(`audio-${index}`);
+            setupAudioListeners(audio);
+            
+            document.getElementById('player-title').innerText = playlist[index].title;
+            document.getElementById('player-artist').innerText = playlist[index].artist;
+            document.getElementById('player-cover').src = playlist[index].cover;
+            
+            if (durationDisplay && !isNaN(audio.duration)) {
+                durationDisplay.innerText = formatTime(audio.duration);
+            }
+
+            audio.play().then(() => {
+                playPauseBtn.innerText = '⏸';
+            }).catch(err => {
+                console.log("Playback error", err);
+            });
+        }
 
         function toggleMusic() {
             if(audio.paused) { 
-                audio.play().catch(err => console.log("Playback blocked:", err)); 
+                audio.play().catch(err => console.log(err)); 
                 playPauseBtn.innerText = '⏸'; 
             } else { 
                 audio.pause(); 
@@ -317,30 +363,14 @@
             }
         }
 
-        function changeSong(songSrc, songTitle, songArtist, coverSrc) {
-            audio.src = songSrc; 
-            audio.load();
-            document.getElementById('player-title').innerText = songTitle;
-            document.getElementById('player-artist').innerText = songArtist;
-            document.getElementById('player-cover').src = coverSrc; 
-            
-            const foundIndex = playlist.findIndex(song => song.src === songSrc);
-            if(foundIndex !== -1) currentSongIndex = foundIndex; 
-            
-            audio.play().catch(err => console.log("Playback error:", err));
-            playPauseBtn.innerText = '⏸';
-        }
-
         function nextSong() {
-            currentSongIndex = (currentSongIndex + 1) % playlist.length;
-            let next = playlist[currentSongIndex];
-            changeSong(next.src, next.title, next.artist, next.cover);
+            let target = (currentIndex + 1) % playlist.length;
+            switchToTrack(target);
         }
 
         function prevSong() {
-            currentSongIndex = (currentSongIndex - 1 + playlist.length) % playlist.length;
-            let prev = playlist[currentSongIndex];
-            changeSong(prev.src, prev.title, prev.artist, prev.cover);
+            let target = (currentIndex - 1 + playlist.length) % playlist.length;
+            switchToTrack(target);
         }
 
         function formatTime(seconds) {
@@ -359,18 +389,7 @@
             });
         }
 
-        audio.addEventListener('timeupdate', () => {
-            if (audio.duration) {
-                if (seekBar && !isSeeking) seekBar.value = (audio.currentTime / audio.duration) * 100;
-                if (currentTimeDisplay) currentTimeDisplay.innerText = formatTime(audio.currentTime);
-                if (durationDisplay && !isNaN(audio.duration)) durationDisplay.innerText = formatTime(audio.duration);
-            }
-        });
-
-        audio.addEventListener('loadedmetadata', () => { if (durationDisplay) durationDisplay.innerText = formatTime(audio.duration); });
-        audio.addEventListener('pause', () => playPauseBtn.innerText = '▶');
-        audio.addEventListener('play', () => playPauseBtn.innerText = '⏸');
-        audio.addEventListener('ended', nextSong);
+        setupAudioListeners(audio);
 
         const petalsContainer = document.getElementById('petals-container');
         if(petalsContainer) {
@@ -436,7 +455,7 @@
         function executeOpenGift() {
             if(isGiftOpened) return;
             isGiftOpened = true;
-            changeSong('Jutti Meri Live.mp3', 'Jutti Meri Live', 'Live Performance', 'cover/Jutti-Meri-Live-1.jpg');
+            switchToTrack(0);
             document.getElementById('gift-icon').style.display = 'none';
             document.getElementById('tap-text').style.display = 'none';
             createBurst(); 
