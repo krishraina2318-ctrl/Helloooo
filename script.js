@@ -3,6 +3,7 @@ const seekBar = document.getElementById('seek-bar');
 const currentTimeDisplay = document.getElementById('current-time');
 const durationDisplay = document.getElementById('duration');
 
+// FIX: Sources mapped to match your exact GitHub repository filenames perfectly
 const playlist = [
     { title: 'Jutti Meri Live', artist: 'Live Performance', cover: 'cover/Jutti-Meri-Live-1.jpg', src: 'Jutti Meri Live.mp3' },
     { title: 'Bairan', artist: 'PenduJatt', cover: 'cover/bairan.jpg', src: 'bairan.mp3' },
@@ -181,5 +182,4 @@ const sectionObserver = new IntersectionObserver((entries) => {
 
 document.querySelectorAll('section').forEach(sec => sectionObserver.observe(sec));
 
-// Kickstart media listeners
 initAudioPlayer();
